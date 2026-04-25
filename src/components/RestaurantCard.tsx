@@ -4,7 +4,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
 
-interface RestaurantCardProps {
+/**
+ * Compact card representation used in restaurant lists.
+ */
+export interface RestaurantCardProps {
   id: number;
   name: string;
   image: string;
@@ -14,6 +17,9 @@ interface RestaurantCardProps {
   location: string;
 }
 
+/**
+ * Clickable card that links to a restaurant details page.
+ */
 const RestaurantCard = ({ 
   id, 
   name, 

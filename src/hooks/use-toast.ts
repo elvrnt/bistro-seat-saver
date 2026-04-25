@@ -8,14 +8,17 @@ import type {
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
 
-type ToasterToast = ToastProps & {
+/**
+ * Toast object stored in the internal toast state.
+ */
+export type ToasterToast = ToastProps & {
   id: string
   title?: React.ReactNode
   description?: React.ReactNode
   action?: ToastActionElement
 }
 
-const actionTypes = {
+export const actionTypes = {
   ADD_TOAST: "ADD_TOAST",
   UPDATE_TOAST: "UPDATE_TOAST",
   DISMISS_TOAST: "DISMISS_TOAST",
@@ -29,9 +32,15 @@ function genId() {
   return count.toString()
 }
 
-type ActionType = typeof actionTypes
+/**
+ * Literal action type map used by the toast reducer.
+ */
+export type ActionType = typeof actionTypes
 
-type Action =
+/**
+ * Actions supported by the toast reducer.
+ */
+export type Action =
   | {
       type: ActionType["ADD_TOAST"]
       toast: ToasterToast
@@ -49,7 +58,10 @@ type Action =
       toastId?: ToasterToast["id"]
     }
 
-interface State {
+/**
+ * Toast store state.
+ */
+export interface State {
   toasts: ToasterToast[]
 }
 
@@ -71,6 +83,9 @@ const addToRemoveQueue = (toastId: string) => {
   toastTimeouts.set(toastId, timeout)
 }
 
+/**
+ * Pure reducer handling toast state transitions.
+ */
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "ADD_TOAST":
@@ -137,8 +152,14 @@ function dispatch(action: Action) {
   })
 }
 
-type Toast = Omit<ToasterToast, "id">
+/**
+ * Input payload for creating a new toast.
+ */
+export type Toast = Omit<ToasterToast, "id">
 
+/**
+ * Creates and shows a toast notification.
+ */
 function toast({ ...props }: Toast) {
   const id = genId()
 
@@ -168,6 +189,9 @@ function toast({ ...props }: Toast) {
   }
 }
 
+/**
+ * Hook that exposes the current toasts and toast actions.
+ */
 function useToast() {
   const [state, setState] = React.useState<State>(memoryState)
 

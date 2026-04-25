@@ -1,0 +1,21 @@
+{
+  "entryPoints": [
+    "src/App.tsx",
+    "src/components",
+    "src/pages",
+    "src/hooks",
+    "src/lib"
+  ],
+  "entryPointStrategy": "expand",
+  "out": "docs/developer",
+  "exclude": [
+    "**/*.test.*",
+    "**/*.spec.*",
+    "src/components/ui/**"
+  ],
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeExternals": true,
+  "readme": "README.md",
+  "name": "Bistro Seat Saver Developer Documentation"
+}

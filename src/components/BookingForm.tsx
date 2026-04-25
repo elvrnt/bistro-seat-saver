@@ -12,16 +12,24 @@ import { CalendarIcon, Clock } from "lucide-react";
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 
-interface BookingFormProps {
-  restaurantId?: number;
-  restaurantName?: string;
-}
-
 const timeSlots = [
   "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", 
   "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00"
 ];
 
+/**
+ * Props for `BookingForm`.
+ */
+export interface BookingFormProps {
+  /** Unique restaurant identifier used when submitting a reservation. */
+  restaurantId?: number;
+  /** Restaurant display name shown in analytics/logging contexts. */
+  restaurantName?: string;
+}
+
+/**
+ * Interactive reservation form shown on the restaurant details page.
+ */
 const BookingForm = ({ restaurantId, restaurantName }: BookingFormProps) => {
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState<string>();

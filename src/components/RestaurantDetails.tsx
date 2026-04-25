@@ -2,12 +2,30 @@
 import { useState } from 'react';
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Star, Clock, MapPin, Phone, Globe, DollarSign } from "lucide-react";
 import BookingForm from './BookingForm';
 
-interface RestaurantDetailsProps {
+/**
+ * Single menu item shown within a menu section.
+ */
+export interface RestaurantMenuItem {
+  name: string;
+  description: string;
+  price: number;
+}
+
+/**
+ * Group of menu items displayed as one tab.
+ */
+export interface RestaurantMenuSection {
+  category: string;
+  items: RestaurantMenuItem[];
+}
+
+/**
+ * Full data model required to render the restaurant details view.
+ */
+export interface RestaurantDetailsProps {
   id: number;
   name: string;
   images: string[];
@@ -20,16 +38,12 @@ interface RestaurantDetailsProps {
   phone: string;
   website: string;
   hours: { [key: string]: string };
-  menu: {
-    category: string;
-    items: {
-      name: string;
-      description: string;
-      price: number;
-    }[];
-  }[];
+  menu: RestaurantMenuSection[];
 }
 
+/**
+ * Full restaurant page content with gallery, info and booking form.
+ */
 const RestaurantDetails = ({
   id,
   name,
