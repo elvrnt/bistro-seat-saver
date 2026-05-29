@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,7 @@ import { ru } from 'date-fns/locale';
 import { CalendarIcon, Clock } from "lucide-react";
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 const timeSlots = [
   "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", 
@@ -39,6 +40,17 @@ const BookingForm = ({ restaurantId, restaurantName }: BookingFormProps) => {
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
   const { toast } = useToast();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+      if (user.phone) {
+        setPhone(user.phone);
+      }
+    }
+  }, [user]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
